@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{require_assets}
-  s.version = "0.1.0"
+  s.version = "3.0.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jeremy Burks"]
@@ -24,6 +24,9 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION",
      "lib/require_assets.rb",
+     "lib/require_assets/helpers.rb",
+     "lib/require_assets/railtie.rb",
+     "require_assets.gemspec",
      "spec/require_assets_spec.rb",
      "spec/spec.opts",
      "spec/spec_helper.rb"
