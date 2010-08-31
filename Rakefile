@@ -10,30 +10,10 @@ begin
     gem.email = "jeremy.burks@gmail.com"
     gem.homepage = "http://jrun.github.com/require_assets"
     gem.authors = ["Jeremy Burks"]
-    gem.add_development_dependency "rspec", ">= 1.2.9"
-    gem.add_development_dependency "yard", ">= 0"
-    gem.add_development_dependency 'grancher', '> 0'
+    gem.add_development_dependency 'rspec', '~> 1.3'
+    gem.add_development_dependency 'yard'
+    gem.add_development_dependency 'grancher'
     gem.files += FileList['rails/*']
-
-    desc "Install development dependencies."
-    task :setup do
-      gems = ::Gem::SourceIndex.from_installed_gems
-      gem.dependencies.each do |dep|
-        if gems.find_name(dep.name, dep.version_requirements).empty?
-          puts "Installing dependency: #{dep}"
-          system %Q|gem install #{dep.name} -v "#{dep.version_requirements}"  --development|
-        end
-      end
-    end
-    
-    desc "Build and reinstall the gem locally."
-    task :reinstall => :build  do
-      version = File.read('VERSION')
-      if (system("gem list #{gem.name} -l") || "")  =~ /#{gem.name}-#{version}/
-        system "gem uninstall #{gem.name}"
-      end
-      system "gem install --no-rdoc --no-ri -l pkg/#{gem.name}-#{version}"
-    end
   end
 
   Jeweler::GemcutterTasks.new
@@ -47,13 +27,6 @@ Spec::Rake::SpecTask.new(:spec) do |spec|
   spec.spec_files = FileList['spec/**/*_spec.rb']
 end
 
-Spec::Rake::SpecTask.new(:rcov) do |spec|
-  spec.libs << 'lib' << 'spec'
-  spec.pattern = 'spec/**/*_spec.rb'
-  spec.rcov = true
-end
-
-task :spec => :check_dependencies
 task :default => :spec
 task :build => [:spec, :yard]
 
